@@ -1,3 +1,6 @@
+require('dotenv').config()
+const { LARAVEL_ENDPOINT } = process.env
+
 export default {
   mode: 'universal',
   /*
@@ -17,18 +20,6 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
   /*
-   ** Customize the progress-bar color
-   */
-  loading: { color: '#fff' },
-  /*
-   ** Global CSS
-   */
-  css: [],
-  /*
-   ** Plugins to load before mounting the App
-   */
-  plugins: [],
-  /*
    ** Nuxt.js dev-modules
    */
   buildModules: [
@@ -40,20 +31,19 @@ export default {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/auth',
+    '@nuxtjs/dotenv'
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
-  /*
-   ** Build configuration
-   */
-  build: {
-    /*
-     ** You can extend webpack config here
-     */
-    extend(config, ctx) {}
+  axios: {
+    baseURL: LARAVEL_ENDPOINT
+  },
+
+  router: {
+    middleware: ['auth']
   }
 }
